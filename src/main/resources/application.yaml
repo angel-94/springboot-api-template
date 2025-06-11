@@ -1,0 +1,105 @@
+server:
+  forward-headers-strategy: framework
+  tomcat:
+    threads:
+      max: 10
+
+# Database config
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  batch:
+    jdbc:
+      initialize-schema: always
+      platform: mysql
+  application:
+    name: wt-load-batch
+    version: "${APP_VERSION:0.0.0}"
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: "${LOAD_BATCH_SERVICE_DATASOURCE_URL:jdbc:mysql://localhost:3306/demo_db?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=America/Mexico_City&useLegacyDatetimeCode=false}"
+    username: "${DATASOURCE_USER:demo}"
+    password: "${DATASOURCE_PASSWORD:demo}"
+    dbcp2:
+      validation-query: select 1
+    hikari:
+      maximum-pool-size: "${MAXIMUM_POOL_SIZE:10}"
+  flyway:
+    enabled: true
+    locations: classpath:migration
+    validate-on-migrate: false
+    placeholderReplacement: false
+    baseline-on-migrate: true
+    table: demo_db_flyway_migration
+  jpa:
+    database: MYSQL
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        use-new-id-generator-mappings: false
+      open-in-view: false
+      format_sql: true
+  profiles:
+    active: default
+  security:
+    user:
+      name: disabled
+      password: disabled
+    filter:
+      order: 3
+
+# Actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /v1/wt-load-batch/actuator
+
+logging:
+  level:
+    com.mars.template.controller: "*"
+    org:
+      springframework: WARN
+      hibernate:
+        SQL: ERROR
+
+# Swagger config
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    path: /api/v1/api-docs
+  swagger-ui:
+    path: /api/v1/swagger-ui.html
+    display-request-duration: true
+    disable-swagger-default-url: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+  override-with-generic-response: true
+
+# Configuración para la interacción con otros servicios
+apis:
+  url:
+    catalog: "${CATALOG_MANAGEMENT_SERVICE_HOST:https://api-catalog.mars.com}"
+
+# Keycloak Configuration
+keycloak:
+  auth-server-url: "${KEYCLOAK_AUTH_SERVER_URL:https://accounts.mars.com/auth}"
+  realm: "${KEYCLOAK_REALM:demo}"
+  resource: "${KEYCLOAK_CLIENT_ID:demo-sa}"
+  credentials:
+    secret: "${KEYCLOAK_CLIENT_SECRET:secret}"
+
