@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "USERS")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "v1/wt-returns/fee")
+@RequestMapping(value = "/api/v1/users")
 public class UserController {
 
 	private final UserService userService;
