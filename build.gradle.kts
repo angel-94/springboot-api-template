@@ -29,7 +29,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springdoc:springdoc-openapi-ui:1.8.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 	implementation("org.modelmapper:modelmapper:3.2.3")
 	implementation("org.flywaydb:flyway-core:11.9.1")
 	implementation("org.flywaydb:flyway-mysql:11.9.1")

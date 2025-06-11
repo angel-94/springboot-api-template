@@ -4,7 +4,7 @@ A Spring Boot REST API template with user management functionality.
 
 ## Prerequisites
 
-- Java 17+
+- Java 24+
 - Docker (for MySQL container)
 
 ## Quick Start

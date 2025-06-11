@@ -8,5 +8,5 @@ VALUES ('AERA850315ABC', 'AERA850315HDFNGL01', 'admin','Angel', 'Ruiz', 'admin@m
        ('RAMA940820MNO', 'RAMA940820MDFMTR06', 'laura.ramirez','Laura', 'Ramirez', 'laura.ramirez@mars.com','5556789012', '1994-08-20', 'ACTIVE', 'admin');
 
 -- Additional insert for testing
-INSERT INTO users (username, password, first_name, last_name, email, status, created_by)
-VALUES ('testuser', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Test', 'User', 'test@mars.com','ACTIVE', 'system');
+INSERT INTO users (username, first_name, last_name, email, status, created_by)
+VALUES ('testuser', 'Test', 'User', 'test@mars.com','ACTIVE', 'system');

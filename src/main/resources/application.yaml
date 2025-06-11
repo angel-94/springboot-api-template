@@ -15,7 +15,7 @@ spring:
       initialize-schema: always
       platform: mysql
   application:
-    name: wt-load-batch
+    name: springboot-api-template
     version: "${APP_VERSION:0.0.0}"
   jackson:
     serialization:
@@ -25,7 +25,7 @@ spring:
       enabled: always
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: "${LOAD_BATCH_SERVICE_DATASOURCE_URL:jdbc:mysql://localhost:3306/demo_db?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=America/Mexico_City&useLegacyDatetimeCode=false}"
+    url: "${LOAD_BATCH_SERVICE_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/demo_db?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=America/Mexico_City&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true}"
     username: "${DATASOURCE_USER:demo}"
     password: "${DATASOURCE_PASSWORD:demo}"
     dbcp2:
@@ -34,7 +34,7 @@ spring:
       maximum-pool-size: "${MAXIMUM_POOL_SIZE:10}"
   flyway:
     enabled: true
-    locations: classpath:migration
+    locations: classpath:migration/db
     validate-on-migrate: false
     placeholderReplacement: false
     baseline-on-migrate: true
@@ -66,11 +66,10 @@ management:
     web:
       exposure:
         include: "*"
-      base-path: /v1/wt-load-batch/actuator
+      base-path: /api/v1/actuator
 
 logging:
   level:
-    com.mars.template.controller: "*"
     org:
       springframework: WARN
       hibernate:
@@ -90,7 +89,6 @@ springdoc:
     operations-sorter: alpha
   override-with-generic-response: true
 
-# Configuración para la interacción con otros servicios
 apis:
   url:
     catalog: "${CATALOG_MANAGEMENT_SERVICE_HOST:https://api-catalog.mars.com}"
@@ -102,4 +100,3 @@ keycloak:
   resource: "${KEYCLOAK_CLIENT_ID:demo-sa}"
   credentials:
     secret: "${KEYCLOAK_CLIENT_SECRET:secret}"
-
